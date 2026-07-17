@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Carta de Cadastro de Dados Bancários</title>
+<title>Dados Bancários</title>
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
@@ -320,6 +320,7 @@
     margin: 0 0 22pt;
   }
 
+  .sheet .blank-line{ margin: 0; }
   .sheet p{ margin: 0 0 12pt; }
 
   .sheet .ao-block p{ margin: 0; }
@@ -352,36 +353,46 @@
 
   .sheet .footer-bar{
     margin-top: 22pt;
-    border-top: 1px solid #142A45;
-    border-bottom: 1px solid #142A45;
+    background: #004563;
+    color: #fff;
     display: flex;
     align-items: center;
     gap: 12pt;
-    padding: 7pt 0;
+    padding: 9pt 14pt;
+    border-radius: 3pt 3pt 0 0;
   }
   .sheet .footer-bar .globe{
-    font-size: 16pt;
-    color: var(--navy-dark);
     flex: 0 0 auto;
+    display: flex;
+    align-items: center;
   }
+  .sheet .footer-bar .globe svg{ width: 20pt; height: 20pt; display: block; }
   .sheet .footer-bar .site{
     font-size: 8pt;
-    color: var(--navy-dark);
+    color: #fff;
     flex: 0 0 auto;
     width: 62pt;
+    border-left: 1px solid rgba(255,255,255,.5);
+    padding-left: 10pt;
   }
   .sheet .footer-bar .central{
     font-size: 7.3pt;
     line-height: 1.5;
-    color: #111;
+    color: #fff;
     flex: 1 1 auto;
+    display: flex;
+    align-items: flex-start;
+    gap: 6pt;
+    border-left: 1px solid rgba(255,255,255,.5);
+    padding-left: 10pt;
   }
+  .sheet .footer-bar .central svg{ width: 12pt; height: 12pt; flex: 0 0 auto; margin-top: 2pt; }
   .sheet .footer-bar .central b{ font-weight: 700; }
   .sheet .footer-bar .hours{
     font-size: 7.3pt;
     line-height: 1.5;
     text-align: right;
-    color: #111;
+    color: #fff;
     flex: 0 0 auto;
     width: 120pt;
   }
@@ -389,8 +400,11 @@
     display:flex;
     justify-content: space-between;
     font-size: 7.3pt;
-    padding: 5pt 0;
-    border-bottom: 1px solid #142A45;
+    color: #fff;
+    background: #004563;
+    padding: 6pt 14pt;
+    border-radius: 0 0 3pt 3pt;
+    border-top: 1px solid rgba(255,255,255,.5);
   }
   .sheet .footer-bar2 b{ font-weight: 700; }
   .sheet .doc-code{
@@ -422,7 +436,7 @@
 <header class="top">
   <div class="wrap">
     <div class="eyebrow">Documento &middot; Banco Volkswagen</div>
-    <h1>Carta de Cadastro de Dados Bancários</h1>
+    <h1>Dados Bancários</h1>
     <p>Preencha os dados abaixo para gerar a carta de solicitação de cadastro de dados bancários, pronta para impressão em PDF.</p>
     <div class="steps">
       <div class="step"><span class="num">1</span> Preencha os campos</div>
@@ -540,12 +554,17 @@
         <p>Volkswagen Corretora de Seguros Ltda.</p>
       </div>
 
+      <p class="blank-line">&nbsp;</p>
+      <p class="blank-line">&nbsp;</p>
       <p class="ref-line"><b>Ref.:</b> <u>Solicitação para cadastro de dados bancários.</u></p>
 
+      <p class="blank-line">&nbsp;</p>
+      <p class="blank-line">&nbsp;</p>
       <p class="body-text">
         Pelo presente, vimos solicitar que todos e quaisquer pagamentos de que sejamos beneficiários em decorrência do nosso relacionamento comercial, sejam creditados conforme abaixo:
       </p>
 
+      <p class="blank-line">&nbsp;</p>
       <p class="bank-line">
         Banco <span class="out" data-field="banco_numero" data-ph="[nº do banco]">[nº do banco]</span> -
         <span class="out" data-field="banco_nome" data-ph="[Nome do banco]">[Nome do banco]</span> -
@@ -553,8 +572,12 @@
         Conta Corrente nº <span class="out" data-field="conta" data-ph="[nº da conta corrente]">[nº da conta corrente]</span>
       </p>
 
+      <p class="blank-line">&nbsp;</p>
+      <p class="blank-line">&nbsp;</p>
       <p>Qualquer alteração desta instrução lhes será comunicada por escrito.</p>
 
+      <p class="blank-line">&nbsp;</p>
+      <p class="blank-line">&nbsp;</p>
       <p>Atenciosamente,</p>
 
       <div class="sign-gap"></div>
@@ -567,14 +590,25 @@
       </div>
 
       <div class="footer-bar">
-        <div class="globe">&#9711;</div>
+        <div class="globe">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.4" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="12" cy="12" r="9.5"/>
+            <line x1="2.5" y1="12" x2="21.5" y2="12"/>
+            <path d="M12 2.5c3.2 3 3.2 16 0 19M12 2.5c-3.2 3-3.2 16 0 19"/>
+          </svg>
+        </div>
         <div class="site">www.vwfs.com.br</div>
         <div class="central">
-          <b>Central de Relacionamento Clientes:</b><br>
-          Capitais e Regiões Metropolitanas: <b>4003 6636</b><br>
-          Demais Regiões: <b>0800 770 1936</b><br>
-          Central de Atendimento Portadores Deficiência Auditiva/Fala: <b>0800 770 1935</b><br>
-          Serviço de Apoio ao Consumidor: <b>0800 770 1926</b>
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6" xmlns="http://www.w3.org/2000/svg">
+            <path d="M4 4.5h3.5l1.7 4.2-2 2c1.1 2.7 2.9 4.5 5.6 5.6l2-2 4.2 1.7V19.5c0 1.1-.9 2-2 2C9.3 21.5 2.5 14.7 2.5 7c0-1.1.9-2 2-2z"/>
+          </svg>
+          <span>
+            <b>Central de Relacionamento Clientes:</b><br>
+            Capitais e Regiões Metropolitanas: <b>4003 6636</b><br>
+            Demais Regiões: <b>0800 770 1936</b><br>
+            Central de Atendimento Portadores Deficiência Auditiva/Fala: <b>0800 770 1935</b><br>
+            Serviço de Apoio ao Consumidor: <b>0800 770 1926</b>
+          </span>
         </div>
         <div class="hours">
           Segunda a sexta: 8h às 20h<br>
@@ -726,6 +760,8 @@
     }
   }
 
+  var TITULO_PADRAO = document.title;
+
   function init(){
     var saved = loadSaved();
     FIELDS.forEach(function(f){
@@ -766,7 +802,13 @@
     });
 
     document.getElementById("btn-imprimir").addEventListener("click", function(){
+      var cnpjDigits = (document.getElementById("cnpj").value || "").replace(/\D/g, "");
+      document.title = cnpjDigits || TITULO_PADRAO;
       window.print();
+    });
+
+    window.addEventListener("afterprint", function(){
+      document.title = TITULO_PADRAO;
     });
   }
 
