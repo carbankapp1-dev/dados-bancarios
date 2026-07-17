@@ -291,6 +291,57 @@
     overflow-x: auto;
     padding: 4px;
   }
+
+  .preview-toolbar{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+    max-width: 8.5in;
+    margin: 0 auto 14px;
+    padding: 10px 14px;
+    background: var(--paper);
+    border: 1px solid var(--paper-edge);
+    border-radius: 8px;
+  }
+  .preview-toolbar button{
+    background: none;
+    border: 1px solid #CBD5E1;
+    color: var(--ink);
+    padding: 7px 12px;
+    border-radius: 6px;
+    font-size: 12.5px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .preview-toolbar button:hover{ background: #F5F7FA; }
+  .preview-toolbar button.active{
+    background: var(--navy);
+    border-color: var(--navy);
+    color: #fff;
+  }
+  .zoom-controls{
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .zoom-controls span{
+    font-size: 12px;
+    color: var(--muted);
+    font-weight: 600;
+    margin-right: 2px;
+  }
+  main.preview-hidden{
+    grid-template-columns: 1fr;
+  }
+  main.preview-hidden .panel{
+    max-width: 640px;
+    margin: 0 auto;
+  }
+  #sheet.sheet-hidden{
+    display: none;
+  }
   .sheet{
     background: var(--paper);
     width: 8.5in;
@@ -540,6 +591,15 @@
   </section>
 
   <section class="sheet-wrap">
+    <div class="preview-toolbar">
+      <button type="button" id="btn-toggle-preview">🙈 Ocultar pré-visualização</button>
+      <div class="zoom-controls" id="zoom-controls">
+        <span>Tamanho:</span>
+        <button type="button" class="zoom-btn" data-zoom="1">100%</button>
+        <button type="button" class="zoom-btn" data-zoom="0.75">75%</button>
+        <button type="button" class="zoom-btn" data-zoom="0.5">50%</button>
+      </div>
+    </div>
     <div class="sheet" id="sheet">
       <p class="internal-tag">INTERNAL</p>
 
@@ -804,12 +864,69 @@
     document.getElementById("btn-imprimir").addEventListener("click", function(){
       var cnpjDigits = (document.getElementById("cnpj").value || "").replace(/\D/g, "");
       document.title = cnpjDigits || TITULO_PADRAO;
+      sheetEl.style.zoom = 1;
+      sheetEl.classList.remove("sheet-hidden");
       window.print();
     });
 
     window.addEventListener("afterprint", function(){
       document.title = TITULO_PADRAO;
+      var z = null;
+      try{ z = parseFloat(localStorage.getItem("preview-zoom")); }catch(e){}
+      sheetEl.style.zoom = z && !isNaN(z) ? z : 1;
+      var visible = null;
+      try{ visible = localStorage.getItem("preview-visible"); }catch(e){}
+      if(visible === "0"){ sheetEl.classList.add("sheet-hidden"); }
     });
+
+    // ---- Ocultar / mostrar pré-visualização ----
+    var mainEl = document.querySelector("main");
+    var sheetEl = document.getElementById("sheet");
+    var zoomControls = document.getElementById("zoom-controls");
+    var toggleBtn = document.getElementById("btn-toggle-preview");
+
+    function setPreviewVisible(visible){
+      if(visible){
+        sheetEl.classList.remove("sheet-hidden");
+        zoomControls.style.display = "";
+        mainEl.classList.remove("preview-hidden");
+        toggleBtn.textContent = "🙈 Ocultar pré-visualização";
+      } else {
+        sheetEl.classList.add("sheet-hidden");
+        zoomControls.style.display = "none";
+        mainEl.classList.add("preview-hidden");
+        toggleBtn.textContent = "👁️ Mostrar pré-visualização";
+      }
+      try{ localStorage.setItem("preview-visible", visible ? "1" : "0"); }catch(e){}
+    }
+
+    toggleBtn.addEventListener("click", function(){
+      var isHidden = sheetEl.classList.contains("sheet-hidden");
+      setPreviewVisible(isHidden);
+    });
+
+    var savedVisible = null;
+    try{ savedVisible = localStorage.getItem("preview-visible"); }catch(e){}
+    if(savedVisible === "0"){ setPreviewVisible(false); }
+
+    // ---- Zoom da pré-visualização ----
+    function setZoom(z){
+      sheetEl.style.zoom = z;
+      document.querySelectorAll(".zoom-btn").forEach(function(btn){
+        btn.classList.toggle("active", parseFloat(btn.getAttribute("data-zoom")) === z);
+      });
+      try{ localStorage.setItem("preview-zoom", z); }catch(e){}
+    }
+
+    document.querySelectorAll(".zoom-btn").forEach(function(btn){
+      btn.addEventListener("click", function(){
+        setZoom(parseFloat(btn.getAttribute("data-zoom")));
+      });
+    });
+
+    var savedZoom = null;
+    try{ savedZoom = parseFloat(localStorage.getItem("preview-zoom")); }catch(e){}
+    setZoom(savedZoom && !isNaN(savedZoom) ? savedZoom : 1);
   }
 
   document.addEventListener("DOMContentLoaded", init);
