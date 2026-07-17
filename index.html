@@ -713,7 +713,9 @@
   }
 
   function save(data){
-    try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); }catch(e){}
+    var toSave = {};
+    for(var k in data){ if(k !== "data_extenso"){ toSave[k] = data[k]; } }
+    try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(toSave)); }catch(e){}
   }
 
   function currentData(){
@@ -834,15 +836,15 @@
     var saved = loadSaved();
     FIELDS.forEach(function(f){
       var input = document.getElementById(f);
+      if(f === "data_extenso"){ return; }
       if(saved[f] !== undefined && saved[f] !== ""){
         input.value = saved[f];
       }
       input.addEventListener("input", render);
     });
+    document.getElementById("data_extenso").addEventListener("input", render);
 
-    if(!document.getElementById("data_extenso").value){
-      document.getElementById("data_extenso").value = dataDeHoje();
-    }
+    document.getElementById("data_extenso").value = dataDeHoje();
 
     render();
 
