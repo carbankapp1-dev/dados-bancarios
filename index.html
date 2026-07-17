@@ -592,7 +592,7 @@
 
   <section class="sheet-wrap">
     <div class="preview-toolbar">
-      <button type="button" id="btn-toggle-preview">🙈 Ocultar pré-visualização</button>
+      <button type="button" id="btn-toggle-preview">Ocultar pré-visualização</button>
       <div class="zoom-controls" id="zoom-controls">
         <span>Tamanho:</span>
         <button type="button" class="zoom-btn" data-zoom="1">100%</button>
@@ -890,12 +890,12 @@
         sheetEl.classList.remove("sheet-hidden");
         zoomControls.style.display = "";
         mainEl.classList.remove("preview-hidden");
-        toggleBtn.textContent = "🙈 Ocultar pré-visualização";
+        toggleBtn.textContent = "Ocultar pré-visualização";
       } else {
         sheetEl.classList.add("sheet-hidden");
         zoomControls.style.display = "none";
         mainEl.classList.add("preview-hidden");
-        toggleBtn.textContent = "👁️ Mostrar pré-visualização";
+        toggleBtn.textContent = "Mostrar pré-visualização";
       }
       try{ localStorage.setItem("preview-visible", visible ? "1" : "0"); }catch(e){}
     }
@@ -926,7 +926,7 @@
 
     var savedZoom = null;
     try{ savedZoom = parseFloat(localStorage.getItem("preview-zoom")); }catch(e){}
-    setZoom(savedZoom && !isNaN(savedZoom) ? savedZoom : 1);
+    setZoom(savedZoom && !isNaN(savedZoom) ? savedZoom : 0.75);
   }
 
   document.addEventListener("DOMContentLoaded", init);
